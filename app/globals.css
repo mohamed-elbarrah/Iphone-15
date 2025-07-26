@@ -14,8 +14,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #f7edd9;
   }
 }
 
@@ -24,3 +24,113 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.hero-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.875rem; /* text-3xl */
+  color: #f7edd9; /* text-gray-100 */
+  opacity: 0;
+  margin-bottom: 2.5rem; /* max-md:mb-10 (approximate for mobile) */
+}
+
+.btn {
+  padding-left: 1.25rem; /* px-5 */
+  padding-right: 1.25rem;
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem;
+  border-radius: 1.5rem; /* rounded-3xl */
+  background-color: #f7edd9; /* bg-blue (Tailwind blue-500) */
+  color: #000000;
+  font-weight: 500; /* font-semibold */
+  margin-top: 1.25rem; /* my-5 */
+  margin-bottom: 1.25rem;
+  border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: #f7edd9; /* text-blue */
+  border: 1px solid #f7edd9; /* border-blue */
+}
+
+.section-heading {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 500; /* font-medium */
+  opacity: 0;
+  transform: translateY(5rem); /* translate-y-20 */
+  margin-bottom: 1.25rem; /* mb-5 */
+}
+
+/* Responsive font sizes and margin-bottom */
+@media (min-width: 768px) {
+  .section-heading {
+    font-size: 3rem; /* md:text-5xl */
+  }
+}
+@media (min-width: 1024px) {
+  .section-heading {
+    font-size: 3.75rem; /* lg:text-6xl */
+    margin-bottom: 0; /* lg:mb-0 */
+  }
+}
+
+.common-padding {
+  padding-top: 5rem; /* py-20 */
+  padding-bottom: 5rem;
+  padding-left: 1.25rem; /* px-5 */
+  padding-right: 1.25rem;
+}
+@media (min-width: 640px) {
+  .common-padding {
+    padding-top: 8rem; /* sm:py-32 */
+    padding-bottom: 8rem;
+    padding-left: 2.5rem; /* sm:px-10 */
+    padding-right: 2.5rem;
+  }
+}
+
+.link {
+  color: #3b82f6; /* Tailwind blue-500 */
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem; /* text-xl */
+  opacity: 0;
+  transform: translateY(5rem); /* translate-y-20 */
+  transition: text-decoration 0.2s;
+}
+.link:hover {
+  text-decoration: underline;
+}
+
+.video-carousel_container {
+  position: relative;
+  width: 88vw;
+  height: 35vh;
+}
+@media (min-width: 640px) {
+  .video-carousel_container {
+    width: 70vw;
+    height: 50vh;
+  }
+}
+@media (min-width: 768px) {
+  .video-carousel_container {
+    height: 70vh;
+  }
+}
+
+.control-btn {
+  margin-left: 1rem; /* ml-4 */
+  padding: 1rem; /* p-4 */
+  border-radius: 9999px; /* rounded-full */
+  background-color: #83b4ff; /* bg-gray-300 */
+  backdrop-filter: blur(4px); /* backdrop-blur */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* flex-center */
+}
+

@@ -5,6 +5,7 @@ const VideoCarousel = () => {
   // Simple state management
   const [currentVideo, setCurrentVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   // Handle when a video ends
   const handleVideoEnd = (videoIndex) => {
@@ -22,11 +23,24 @@ const VideoCarousel = () => {
     setCurrentVideo(index);
   };
 
+  // Update progress in real-time
+  const updateProgress = () => {
+    const videoElement = document.getElementById(`video-${currentVideo}`);
+    if (videoElement && videoElement.duration) {
+      const currentProgress =
+        (videoElement.currentTime / videoElement.duration) * 100;
+      setProgress(currentProgress);
+    }
+  };
+
   // Auto-play videos when currentVideo changes
   useEffect(() => {
     const videoElement = document.getElementById(`video-${currentVideo}`);
-    
+
     if (videoElement) {
+      // Reset progress when changing videos
+      setProgress(0);
+
       // Pause all videos first
       hightlightsSlides.forEach((_, index) => {
         const video = document.getElementById(`video-${index}`);
@@ -37,17 +51,35 @@ const VideoCarousel = () => {
 
       // Play current video
       videoElement.currentTime = 0;
-      videoElement.play()
+      videoElement
+        .play()
         .then(() => setIsPlaying(true))
         .catch((error) => console.log("Video play error:", error));
     }
   }, [currentVideo]);
 
+  // Track progress while video is playing
+  useEffect(() => {
+    let intervalId;
+
+    if (isPlaying) {
+      // Update progress every 100ms for smooth animation
+      intervalId = setInterval(updateProgress, 100);
+    }
+
+    // Cleanup interval when component unmounts or video stops
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [isPlaying, currentVideo]);
+
   return (
     <div className="w-full">
       {/* Video Container */}
       <div className="relative overflow-hidden">
-        <div 
+        <div
           className="flex transition-transform duration-1000 ease-in-out"
           style={{ transform: `translateX(-${currentVideo * 100}%)` }}
         >
@@ -65,13 +97,13 @@ const VideoCarousel = () => {
                 >
                   <source src={slide.video} type="video/mp4" />
                 </video>
-                
+
                 {/* Video Text Overlay */}
                 <div className="absolute top-12 left-8 z-10">
                   {slide.textLists.map((text, textIndex) => (
-                    <p 
-                      key={textIndex} 
-                      className="text-white text-xl md:text-2xl font-medium mb-2"
+                    <p
+                      key={textIndex}
+                      className="text-white text-xl md:text-2xl font-bold mb-2"
                     >
                       {text}
                     </p>
@@ -93,40 +125,32 @@ const VideoCarousel = () => {
               onClick={() => handleIndicatorClick(index)}
             >
               {/* Background indicator */}
-              <div 
-                className={`h-3 rounded-full transition-all duration-300 ${
-                  index === currentVideo 
-                    ? 'bg-gray-600 w-12' 
-                    : 'bg-gray-600 w-3'
-                } hover:bg-gray-500`}
+              <div
+                className={`h-3 rounded-full transition-all duration-300 bg-gray-600 hover:bg-gray-500 ${
+                  index === currentVideo ? "w-12" : "w-3"
+                }`}
               >
                 {/* Progress fill */}
-                <div 
-                  className={`h-full rounded-full transition-all duration-300 ${
-                    index < currentVideo 
-                      ? 'bg-white w-full' 
-                      : index === currentVideo 
-                        ? 'bg-white progress-animation' 
-                        : 'bg-gray-400 w-0'
-                  }`}
+                <div
+                  className="h-full rounded-full transition-all duration-100"
+                  style={{
+                    width:
+                      index < currentVideo
+                        ? "100%"
+                        : index === currentVideo
+                        ? `${progress}%`
+                        : "0%",
+                    backgroundColor:
+                      index < currentVideo || index === currentVideo
+                        ? "white"
+                        : "transparent",
+                  }}
                 />
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      {/* Simple CSS for progress animation */}
-      <style jsx>{`
-        .progress-animation {
-          animation: fillProgress 5s linear forwards;
-        }
-        
-        @keyframes fillProgress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-      `}</style>
     </div>
   );
 };

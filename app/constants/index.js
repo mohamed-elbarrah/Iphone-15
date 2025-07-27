@@ -15,9 +15,9 @@ export const hightlightsSlides = [
   {
     id: 1,
     textLists: [
-      "Enter A17 Pro.",
-      "Game‑changing chip.",
-      "Groundbreaking performance.",
+      "Enter A17 Pro",
+      "Game‑changing chip",
+      "Groundbreaking performance",
     ],
     video: highlightFirstVideo,
     videoDuration: 4,
@@ -40,7 +40,7 @@ export const hightlightsSlides = [
   },
   {
     id: 4,
-    textLists: ["All-new Action button.", "What will yours do?."],
+    textLists: ["All-new Action button.", "What will yours do?"],
     video: highlightFourthVideo,
     videoDuration: 3.63,
   },

@@ -98,7 +98,6 @@ const VideoCarousel = () => {
                   <source src={slide.video} type="video/mp4" />
                 </video>
 
-                {/* Video Text Overlay */}
                 <div className="absolute top-12 left-8 z-10">
                   {slide.textLists.map((text, textIndex) => (
                     <p
@@ -150,7 +149,7 @@ const VideoCarousel = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> 
     </div>
   );
 };

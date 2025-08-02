@@ -14,7 +14,7 @@ export default function Highlights() {
   return (
     <section
       id="highlight"
-      className="overflow-hidden h-full common-padding bg-zinc-900"
+      className="overflow-hidden h-full common-padding bg-zinc-900 rounded-3xl"
     >
       <div className="screen-max-width ">
         <div className="mb-12 w-full md:flex items-end justify-between">
